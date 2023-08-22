@@ -1241,7 +1241,7 @@ ARGS is same as `nerd-icons-octicon' and others."
              (icon (and (fboundp func)
                         (apply func icon-name args))))
         (if icon
-            (doom-modeline-propertize-icon icon face)
+            (doom-modeline-propertize-icon icon)
           "")))
      ;; Unicode fallback
      ((and doom-modeline-unicode-fallback
