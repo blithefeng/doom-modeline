@@ -1209,7 +1209,9 @@ So convert the face \":family XXX :height XXX :inherit XXX\" to
 \":inherit XXX :family XXX :height XXX\".
 See https://github.com/seagle0128/doom-modeline/issues/301."
   (if (doom-modeline-icon-displayable-p)
+      (message "we have reach here")
       (when-let ((props (get-text-property 0 'face icon)))
+        (message "we have reach here too")
         (when (listp props)
           (message "props is a list")
           (cl-destructuring-bind (&key family height inherit &allow-other-keys) props
