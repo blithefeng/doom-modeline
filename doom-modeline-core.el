@@ -1233,10 +1233,9 @@ ARGS is same as `nerd-icons-octicon' and others."
            (not (string-empty-p icon-name)))
       (let* ((func (nerd-icons--function-name icon-set))
              (icon (and (fboundp func)
-                        (apply func icon-name args))))
-        (if icon
-            (doom-modeline-propertize-icon icon face)
-          "")))
+                        (apply func icon-name args)))
+             (icon (doom-modeline-propertize-icon icon face)))
+        (if icon icon "")))
      ;; Unicode fallback
      ((and doom-modeline-unicode-fallback
            unicode
