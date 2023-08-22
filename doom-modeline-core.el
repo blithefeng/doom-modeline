@@ -1238,7 +1238,7 @@ ARGS is same as `nerd-icons-octicon' and others."
       (let* ((func (nerd-icons--function-name icon-set))
              (icon (and (fboundp func)
                         (apply func icon-name args))))
-        (message "we reach here too!!!")
+        (message "icon is %S(%s)" icon (if icon "nice" "bad"))
         (if icon
             (doom-modeline-propertize-icon icon face)
           "")))
