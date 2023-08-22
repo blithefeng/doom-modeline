@@ -1208,16 +1208,19 @@ The face should be the first attribute, or the font family may be overridden.
 So convert the face \":family XXX :height XXX :inherit XXX\" to
 \":inherit XXX :family XXX :height XXX\".
 See https://github.com/seagle0128/doom-modeline/issues/301."
+  (message "we have reach propertize")
   (if (doom-modeline-icon-displayable-p)
-      (message "we have reach here")
-      (when-let ((props (get-text-property 0 'face icon)))
-        (message "we have reach here too")
-        (when (listp props)
-          (message "props is a list")
-          (cl-destructuring-bind (&key family height inherit &allow-other-keys) props
-            (propertize icon 'face `(:family  ,(or family "")
-                                     :height  ,(or height 1.0)))))
-        (message "props %S" props))
+      (progn
+        (message "we have reach here")
+        (when-let ((props (get-text-property 0 'face icon)))
+          (message "we have reach here too")
+          (when (listp props)
+            (message "props is a list")
+            (cl-destructuring-bind (&key family height inherit &allow-other-keys) props
+              (propertize icon 'face `(:family  ,(or family "")
+                                       :height  ,(or height 1.0)))))
+          (message "props %S" props))
+        )
     (propertize icon 'face `(:inherit (doom-modeline ,face)))))
 
 (defun doom-modeline-icon (icon-set icon-name unicode text &rest args)
@@ -1234,11 +1237,9 @@ ARGS is same as `nerd-icons-octicon' and others."
      ((and (doom-modeline-icon-displayable-p)
            icon-name
            (not (string-empty-p icon-name)))
-      (message "we reach here!!!")
       (let* ((func (nerd-icons--function-name icon-set))
              (icon (and (fboundp func)
                         (apply func icon-name args))))
-        (message "icon is %S(%s)" icon (if icon "nice" "bad"))
         (if icon
             (doom-modeline-propertize-icon icon face)
           "")))
