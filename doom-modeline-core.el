@@ -1241,7 +1241,12 @@ ARGS is same as `nerd-icons-octicon' and others."
              (icon (and (fboundp func)
                         (apply func icon-name args))))
         (if icon
-            icon
+            (when-let ((props (get-text-property 0 'face icon)))
+              (when (listp props)
+                (cl-destructuring-bind (&key family height inherit :allow-other-keys) props
+                  (propertize icon 'face `(:inherit (doom-modeline ,(or face inherit props))
+                                           :family ,(or family "")
+                                           :height ,(or height 1.0))))))
           "")))
      ;; Unicode fallback
      ((and doom-modeline-unicode-fallback
