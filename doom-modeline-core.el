@@ -1211,9 +1211,11 @@ See https://github.com/seagle0128/doom-modeline/issues/301."
   (if (doom-modeline-icon-displayable-p)
       (when-let ((props (get-text-property 0 'face icon)))
         (when (listp props)
+          (message "props is a list")
           (cl-destructuring-bind (&key family height inherit &allow-other-keys) props
             (propertize icon 'face `(:family  ,(or family "")
-                                     :height  ,(or height 1.0))))))
+                                     :height  ,(or height 1.0)))))
+        (message "props %S" props))
     (propertize icon 'face `(:inherit (doom-modeline ,face)))))
 
 (defun doom-modeline-icon (icon-set icon-name unicode text &rest args)
