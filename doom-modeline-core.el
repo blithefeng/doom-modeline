@@ -1241,9 +1241,7 @@ ARGS is same as `nerd-icons-octicon' and others."
              (icon (and (fboundp func)
                         (apply func icon-name args))))
         (if icon
-            (progn
-              (message "we enter this branch")
-              (doom-modeline-propertize-icon icon face))
+            icon
           "")))
      ;; Unicode fallback
      ((and doom-modeline-unicode-fallback
